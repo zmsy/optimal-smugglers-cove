@@ -1,0 +1,116 @@
+drink,weighted_popularity_score,mentions,reddit_sources_count,mean_thread_upvotes,rated_sources_count,mean_explicit_rating,max_thread_upvotes,max_explicit_rating,confidence,evidence_sample
+The Undead Gentleman,,0,0,,0,,,,low,
+Doctor Funk,2.173879233421739,1,1,18.0,0,,18,,low,sourdoughbred
+Cosa Nostra #2,,0,0,,0,,,,low,
+Jungle Bird,3.394847040480921,4,4,119.75,1,8.0,412,8.0,high,JavaGiant865;WellonDowd;Ribauld
+Formidable Dragon,2.8882464986847416,1,1,49.0,0,,49,,low,RobbStark87
+Norwegian Paralysis,2.173879233421739,1,1,18.0,0,,18,,low,Yellowlab72
+The Naked Ape,2.173879233421739,1,1,18.0,0,,18,,low,heronpoint
+Arrack Punch,,0,0,,0,,,,low,
+La Guildive,,0,0,,0,,,,low,
+Suffering Bastard,3.0743874938036053,3,3,143.33333333333334,0,,412,,medium,POST_BODY;MannieOKelly
+Donn Day Afternoon,,0,0,,0,,,,low,
+A Wish For Grace,2.9777210188861654,3,2,33.5,0,,49,,medium,Yellowlab72;nixstyx
+Abricot Vieux,,0,0,,0,,,,low,
+Agricole Guava Cooler,,0,0,,0,,,,low,
+Barbados Rum Punch,4.147169667539326,2,2,211.0,1,8.5,412,8.5,medium,RikVanguard
+Callaloo Cooler,,0,0,,0,,,,low,
+Corn And Oil,,0,0,,0,,,,low,
+Don's Own Grog,,0,0,,0,,,,low,
+Eureka Punch,,0,0,,0,,,,low,
+For Pete's Sake,2.8882464986847416,1,1,49.0,0,,49,,low,ApothecaryAlyth
+Golden Gun,3.4328475534016074,4,4,122.25,1,6.0,412,6.0,high,rabk294;Vanilloideae;HotTub_MKE
+Halekulani Cocktail,2.173879233421739,1,1,18.0,0,,18,,low,POST_BODY
+Hondo Hattie's Jungle Punch!,2.8882464986847416,1,1,49.0,0,,49,,low,HotTub_MKE
+Jamaican Milk Punch,2.8882464986847416,1,1,49.0,0,,49,,low,HotTub_MKE
+Kaiteur Swizzle,3.371164121167331,3,3,143.33333333333334,1,8.0,412,8.0,high,POST_BODY;tempura_tantrum
+Max's Mistake,,0,0,,0,,,,low,
+Pampanito,2.8882464986847416,1,1,49.0,0,,49,,low,tuneman2u
+Paniolo Old-Fashioned,2.8882464986847416,1,1,49.0,0,,49,,low,word_up
+Planter's Punch,3.186608648405954,5,5,99.4,1,7.0,412,7.0,high,KinkyKankles;hootygator;itaipunk
+Port Au Prince,2.8882464986847416,1,1,49.0,0,,49,,low,ApothecaryAlyth
+Puka Punch,2.9777210188861654,2,2,33.5,0,,49,,medium,andersonimes;ApothecaryAlyth
+Pupule,2.8882464986847416,1,1,49.0,0,,49,,low,LouBrown
+Queen's Park Swizzle,4.083419667539326,2,2,211.0,1,8.0,412,8.0,medium,Treebranch_916
+Richard Sealebach,1.9084833611993528,2,1,8.0,0,,8,,medium,[deleted]
+Shudders In A Whisper,,0,0,,0,,,,low,
+Singapore Sling,2.8882464986847416,1,1,49.0,0,,49,,low,LouBrown
+Smuggler's Rum Barrel,,0,0,,0,,,,low,
+The Dead Reckoning,2.8882464986847416,1,1,49.0,0,,49,,low,LynkDead
+Tree Dots And A Dash,,0,0,,0,,,,low,
+Triumvirate Punch,,0,0,,0,,,,low,
+The Sexpert,,0,0,,0,,,,low,
+The Chadburn,,0,0,,0,,,,low,
+Humuhumunukunukuapua'A,2.945166865476745,4,4,112.0,0,,412,,medium,POST_BODY;[deleted];Strike_Alibi
+Lauwiliwilinukunuku'Oi'Oi,,0,0,,0,,,,low,
+Roselita,2.173879233421739,1,1,18.0,0,,18,,low,Strike_Alibi
+The Mastadon,3.8775783778334474,3,3,157.0,1,8.0,412,8.0,high,Annual_Cut_1140;HotTub_MKE
+Jet Pilot,3.110108648405954,5,5,99.4,1,5.5,412,5.5,high,Annual_Cut_1140;Herr_Maltenberg;[deleted]
+Rumbustion Punch,2.8882464986847416,1,1,49.0,0,,49,,low,tobaccoroadie
+The Ernesto,1.6222108570194498,1,1,8.0,0,,8,,low,GovernorZipper
+The Twenty Seventy Swizzle,,0,0,,0,,,,low,
+Tiki Bowl,,0,0,,0,,,,low,
+Zombie,3.4965975534016076,4,4,122.25,1,7.0,412,7.0,high,Annual_Cut_1140;Strike_Alibi;navynickw
+Falinum,,0,0,,0,,,,low,
+Monk's Respite,,0,0,,0,,,,low,
+Bumboat,2.8882464986847416,1,1,49.0,0,,49,,low,HotTub_MKE
+Cuevas,,1,0,,0,,,,low,
+Kahiko Punch,2.9777210188861654,3,2,33.5,0,,49,,medium,Yellowlab72;ApothecaryAlyth
+Millionaire Cocktail No. 1,,0,0,,0,,,,low,
+Mundo Perdido,,0,0,,0,,,,low,
+Scorpion,1.6222108570194498,1,1,8.0,0,,8,,low,kkngs
+Twelve Mile Limit,,0,0,,0,,,,low,
+Yuletidal Wave,2.8882464986847416,1,1,49.0,0,,49,,low,HotTub_MKE
+Fog Cutter,1.6222108570194498,1,1,8.0,0,,8,,low,MannieOKelly
+Batida De Maracuja E Coco,,0,0,,0,,,,low,
+El Draque,2.8882464986847416,1,1,49.0,0,,49,,low,oregoncurtis
+Caribeño,,0,0,,0,,,,low,
+Lei Lani Volcano 2.0,3.570872059162543,3,3,157.0,0,,412,,medium,JavaGiant865;HotTub_MKE
+Peachtree Punch 2.0,,0,0,,0,,,,low,
+Tradewinds,3.237608648405954,5,5,99.4,1,8.0,412,8.0,high,Annual_Cut_1140;[deleted];LouBrown
+Parisian Blonde,,0,0,,0,,,,low,
+Cora Middleton,,0,0,,0,,,,low,
+Port Light,,0,0,,0,,,,low,
+Rum Flip,,0,0,,0,,,,low,
+Captain's Grog,,0,0,,0,,,,low,
+Calibogus,,0,0,,0,,,,low,
+Hot Buttered Rum Batter,,0,0,,0,,,,low,
+Mexican El Diablo,,0,0,,0,,,,low,
+Ti' Punch / Ti' Punch Vieux,,0,0,,0,,,,low,
+House Spiced Rum,,0,0,,0,,,,low,
+Aku Aku,2.6213084663238946,3,3,25.0,0,,49,,medium,tempura_tantrum;Strike_Alibi;RobbStark87
+Boo Loo,2.8882464986847416,1,1,49.0,0,,49,,low,LouBrown
+Hotel Nacional Special,,0,0,,0,,,,low,
+Hinky Dinks Fizzy,,0,0,,0,,,,low,
+Saturn,3.263108648405954,5,5,99.4,1,8.5,412,8.5,high,POST_BODY;[deleted];LouBrown
+Port Royal,2.9777210188861654,3,2,33.5,0,,49,,medium,Yellowlab72;the_madeline
+Hot Buttered Rum,,0,0,,0,,,,low,
+Finkelgrog,,0,0,,0,,,,low,
+Navy Grog,2.9777210188861654,2,2,33.5,0,,49,,medium,cozeface;LouBrown
+Demerara Dry Float,2.6532102092377596,2,2,28.5,0,,49,,medium,[deleted];tobaccoroadie
+Hana Reviver,,0,0,,0,,,,low,
+Hawaiin Sunset,,0,0,,0,,,,low,
+Hurricane,2.9777210188861654,2,2,33.5,0,,49,,medium,Yellowlab72;LouBrown
+Kingston Palaka,,0,0,,0,,,,low,
+Merciless Virgin,2.173879233421739,1,1,18.0,0,,18,,low,cptn_smitty
+Piñata,,0,0,,0,,,,low,
+Spontaneous Rumbustion,,0,0,,0,,,,low,
+Center Of The Galaxy,2.8882464986847416,1,1,49.0,0,,49,,low,AltFFour69
+Chartreuse Swizzle,3.3141086484059543,5,5,99.4,1,9.5,412,9.5,high,POST_BODY;WellonDowd;Strike_Alibi
+Daiquiri No. 1,,0,0,,0,,,,low,
+Daisy De Santiago,,0,0,,0,,,,low,
+Grog,3.263108648405954,5,5,99.4,1,8.5,412,8.5,high,POST_BODY;[deleted];cozeface
+Hibiscus Rum Punch,2.8882464986847416,1,1,49.0,0,,49,,low,HotTub_MKE
+Hotel Nacional Special ,,0,0,,0,,,,low,
+Juan Ho Royale,,0,0,,0,,,,low,
+Mai Tai,2.6213084663238946,3,3,25.0,0,,49,,medium,MannieOKelly;POST_BODY;navynickw
+Sidewinder's Fang,2.173879233421739,1,1,18.0,0,,18,,low,Strike_Alibi
+Sparkling Mai Tai,,0,0,,0,,,,low,
+Swizzle Français,,0,0,,0,,,,low,
+The Expedition,2.6532102092377596,2,2,28.5,0,,49,,medium,joshspencer24;LouBrown
+Top Notch Volcano,2.9777210188861654,2,2,33.5,0,,49,,medium,itaipunk;Ribauld
+Mary Pickford,2.9777210188861654,2,2,33.5,0,,49,,medium,Strike_Alibi;Ribauld
+Baie Du Galion,,0,0,,0,,,,low,
+El Presidente,4.147169667539326,2,2,211.0,1,8.5,412,8.5,medium,POST_BODY
+Bombo,,0,0,,0,,,,low,
+Wray & Ting,,0,0,,0,,,,low,
