@@ -1,6 +1,5 @@
 """optimal-smugglers-cove CSP/ILP solver.
 
-Implements the pipeline described in `SOLVER_PROMPT.md`:
 - Load + normalize ingredients (handle `Rum Category`)
 - Build cocktail -> ingredient sets
 - Join scores
@@ -36,7 +35,6 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "alpha": 0.3,
     "use_log_scores": True,
     "score_scale": 1.0,
-    # Not in SOLVER_PROMPT.md, but required as an option.
     "use_rank_scores": False,
     # If true, select non-bottles from metadata.csv (e.g. lime, syrups).
     # Otherwise select bottles only.
@@ -355,7 +353,7 @@ def main() -> None:
     parser.add_argument(
         "--config",
         default="config.json",
-        help="Path to config.json (optional; defaults from SOLVER_PROMPT.md)",
+        help="Path to config.json",
     )
     parser.add_argument(
         "--output-dir",

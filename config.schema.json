@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "optimal-smugglers-cove config",
+  "type": "object",
+  "properties": {
+    "max_bottles": {
+      "type": "integer",
+      "description": "Maximum number of bottles/ingredients to select (CP-SAT limit).",
+      "default": 10,
+      "minimum": 1
+    },
+    "alpha": {
+      "type": "number",
+      "description": "Tradeoff weight between coverage and objective score",
+      "default": 0.3
+    },
+    "use_log_scores": {
+      "type": "boolean",
+      "description": "If true, use log-transformed scores when building the objective.",
+      "default": true
+    },
+    "score_scale": {
+      "type": "number",
+      "description": "Scaling applied to computed scores before converting to integer coefficients.",
+      "default": 1.0
+    },
+    "use_rank_scores": {
+      "type": "boolean",
+      "description": "If true, use rank-based scores instead of raw/log scores.",
+      "default": false
+    },
+    "use_ingredients": {
+      "type": "boolean",
+      "description": "If true, select non-bottles from metadata.csv; otherwise select bottles only.",
+      "default": false
+    },
+    "objective_scale": {
+      "type": "integer",
+      "description": "Multiplier to keep CP-SAT objective coefficients as integers (larger => larger scaling).",
+      "default": 1000000,
+      "minimum": 1
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "max_bottles",
+    "use_ingredients"
+  ]
+}
