@@ -36,9 +36,11 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "use_log_scores": True,
     "score_scale": 1.0,
     "use_rank_scores": False,
-    # If true, select non-bottles from metadata.csv (e.g. lime, syrups).
-    # Otherwise select bottles only.
-    "use_ingredients": False,
+    # Which ingredient types can be selected.
+    # - "bottles_only": bottle=true from metadata.csv
+    # - "non_bottles_only": bottle=false from metadata.csv
+    # - "both": allow both
+    "ingredient_mode": "bottles_only",
     # CP-SAT requires integer coefficients.
     "objective_scale": 1_000_000,
 }
@@ -81,9 +83,12 @@ def load_cocktails(
     index_csv: Path,
     bottle_status: dict[str, bool],
     *,
-    include_bottles: bool,
+    ingredient_mode: str,
 ) -> dict[str, set[str]]:
     cocktails: dict[str, set[str]] = defaultdict(set)
+
+    include_bottles = ingredient_mode in ("bottles_only", "both")
+    include_non_bottles = ingredient_mode in ("non_bottles_only", "both")
 
     with index_csv.open("r", encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f)
@@ -105,7 +110,7 @@ def load_cocktails(
 
             if include_bottles and is_bottle:
                 cocktails[drink].add(ing)
-            elif (not include_bottles) and (not is_bottle):
+            elif include_non_bottles and (not is_bottle):
                 cocktails[drink].add(ing)
 
     return {drink: set(ings) for drink, ings in cocktails.items() if ings}
@@ -377,9 +382,28 @@ def main() -> None:
     objective_scale = int(cfg.get("objective_scale", DEFAULT_CONFIG["objective_scale"]))
 
     bottle_status = load_bottle_status_map(metadata_csv)
-    include_bottles = not bool(cfg.get("use_ingredients", False))
+
+    # Support legacy configs that used `use_ingredients`.
+    ingredient_mode = cfg.get("ingredient_mode")
+    if ingredient_mode is None and "use_ingredients" in cfg:
+        ingredient_mode = (
+            "non_bottles_only" if bool(cfg["use_ingredients"]) else "bottles_only"
+        )
+    ingredient_mode = ingredient_mode or DEFAULT_CONFIG["ingredient_mode"]
+
+    if ingredient_mode == "bottles_only":
+        selected_kind_label = "bottles"
+    elif ingredient_mode == "non_bottles_only":
+        selected_kind_label = "non-bottles"
+    elif ingredient_mode == "both":
+        selected_kind_label = "bottles + non-bottles"
+    else:
+        raise ValueError(f"Unknown ingredient_mode: {ingredient_mode!r}")
+
     cocktails_raw = load_cocktails(
-        index_csv, bottle_status, include_bottles=include_bottles
+        index_csv,
+        bottle_status,
+        ingredient_mode=ingredient_mode,
     )
 
     scores = load_scores(scores_csv)
@@ -438,7 +462,7 @@ def main() -> None:
         coverage_progression=coverage_progression,
     )
 
-    print("Selected ingredients (bottles):")
+    print(f"Selected ingredients ({selected_kind_label}):")
     for ing in selected_ingredients:
         print(f"- {ing}")
 

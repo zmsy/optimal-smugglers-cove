@@ -1,7 +1,4 @@
 {
   "max_bottles": 10,
-  "alpha": 0.3,
-  "use_log_scores": true,
-  "score_scale": 1.0,
-  "use_ingredients": true
+  "ingredient_mode": "both"
 }
