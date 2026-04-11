@@ -13,6 +13,9 @@ import argparse
 import csv
 import json
 import math
+import os
+import threading
+import time
 from collections import defaultdict
 from dataclasses import dataclass
 from itertools import combinations
@@ -31,7 +34,7 @@ class Cocktail:
 
 
 DEFAULT_CONFIG: dict[str, Any] = {
-    "max_bottles": 10,
+    "max_ingredients": 10,
     "alpha": 0.3,
     "use_log_scores": True,
     "score_scale": 1.0,
@@ -41,6 +44,13 @@ DEFAULT_CONFIG: dict[str, Any] = {
     # - "non_bottles_only": bottle=false from metadata.csv
     # - "both": allow both
     "ingredient_mode": "bottles_only",
+    # Solver/runtime controls.
+    # 0 means auto (use all available CPU cores).
+    "num_search_workers": 0,
+    # 0 means no time limit.
+    "max_time_in_seconds": 120,
+    "log_search_progress": False,
+    "print_incumbent_solutions": True,
     # CP-SAT requires integer coefficients.
     "objective_scale": 1_000_000,
 }
@@ -176,9 +186,13 @@ def compute_cocktails(
 def solve(
     *,
     cocktails: list[Cocktail],
-    max_bottles: int,
+    max_ingredients: int,
     alpha: float,
     objective_scale: int,
+    num_search_workers: int,
+    max_time_in_seconds: float,
+    log_search_progress: bool,
+    print_incumbent_solutions: bool,
 ) -> tuple[list[str], list[str], float, dict[str, int]]:
     ingredients: set[str] = set()
     for c in cocktails:
@@ -190,7 +204,7 @@ def solve(
     ingredient_vars = {ing: model.NewBoolVar(f"x::{ing}") for ing in ingredient_list}
     cocktail_vars = {c.name: model.NewBoolVar(f"y::{c.name}") for c in cocktails}
 
-    model.Add(sum(ingredient_vars.values()) <= max_bottles)
+    model.Add(sum(ingredient_vars.values()) <= max_ingredients)
 
     # No partial cocktails: y_c => all required x_i.
     for c in cocktails:
@@ -215,10 +229,45 @@ def solve(
     model.Maximize(sum(scaled * var for scaled, var in scaled_terms))
 
     solver = cp_model.CpSolver()
-    solver.parameters.random_seed = 0
-    solver.parameters.num_search_workers = 1
 
-    status = solver.Solve(model)
+    solver.parameters.random_seed = 0
+    if num_search_workers == 0:
+        solver.parameters.num_search_workers = max(1, (os.cpu_count() or 1))
+    else:
+        solver.parameters.num_search_workers = max(1, int(num_search_workers))
+
+    if max_time_in_seconds and max_time_in_seconds > 0:
+        solver.parameters.max_time_in_seconds = float(max_time_in_seconds)
+
+    solver.parameters.log_search_progress = bool(log_search_progress)
+
+    heartbeat_thread: threading.Thread | None = None
+    stop_heartbeat = threading.Event()
+    try:
+        if print_incumbent_solutions:
+            # OR-Tools may not support solution callbacks in all builds.
+            # This heartbeat at least tells us the solver is actively working.
+            def heartbeat() -> None:
+                start = time.monotonic()
+                interval_s = 15
+                while not stop_heartbeat.wait(interval_s):
+                    elapsed_s = int(time.monotonic() - start)
+                    if max_time_in_seconds and max_time_in_seconds > 0:
+                        print(
+                            f"[progress] elapsed={elapsed_s}s (time limit={max_time_in_seconds}s)"
+                        )
+                    else:
+                        print(f"[progress] elapsed={elapsed_s}s")
+
+            heartbeat_thread = threading.Thread(target=heartbeat, daemon=True)
+            heartbeat_thread.start()
+
+        status = solver.Solve(model)
+    finally:
+        stop_heartbeat.set()
+        if heartbeat_thread is not None:
+            heartbeat_thread.join(timeout=1)
+
     if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
         raise RuntimeError(f"No solution found (status={status}).")
 
@@ -362,7 +411,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--output-dir",
-        default=".",
+        default="output",
         help="Directory to write intermediate artifacts",
     )
     args = parser.parse_args()
@@ -374,12 +423,28 @@ def main() -> None:
     output_dir = Path(args.output_dir)
 
     cfg = load_config(config_path)
-    max_bottles = int(cfg["max_bottles"])
+    max_ingredients = int(cfg["max_ingredients"])
     alpha = float(cfg["alpha"])
     use_log_scores = bool(cfg["use_log_scores"])
     score_scale = float(cfg["score_scale"])
     use_rank_scores = bool(cfg.get("use_rank_scores", False))
     objective_scale = int(cfg.get("objective_scale", DEFAULT_CONFIG["objective_scale"]))
+
+    num_search_workers = int(
+        cfg.get("num_search_workers", DEFAULT_CONFIG["num_search_workers"])
+    )
+    max_time_in_seconds = float(
+        cfg.get("max_time_in_seconds", DEFAULT_CONFIG["max_time_in_seconds"])
+    )
+    log_search_progress = bool(
+        cfg.get("log_search_progress", DEFAULT_CONFIG["log_search_progress"])
+    )
+    print_incumbent_solutions = bool(
+        cfg.get(
+            "print_incumbent_solutions",
+            DEFAULT_CONFIG["print_incumbent_solutions"],
+        )
+    )
 
     bottle_status = load_bottle_status_map(metadata_csv)
 
@@ -406,6 +471,7 @@ def main() -> None:
         ingredient_mode=ingredient_mode,
     )
 
+    print("Loading scores + computing cocktail weights...")
     scores = load_scores(scores_csv)
     cocktails = compute_cocktails(
         cocktails_raw,
@@ -429,6 +495,7 @@ def main() -> None:
         for a, b in combinations(unique_ings, 2):
             cooccurrence_counts[(a, b)] += 1
 
+    print("Building + solving CP-SAT model...")
     (
         selected_ingredients,
         enabled_cocktails,
@@ -436,9 +503,13 @@ def main() -> None:
         ingredient_marginals,
     ) = solve(
         cocktails=cocktails,
-        max_bottles=max_bottles,
+        max_ingredients=max_ingredients,
         alpha=alpha,
         objective_scale=objective_scale,
+        num_search_workers=num_search_workers,
+        max_time_in_seconds=max_time_in_seconds,
+        log_search_progress=log_search_progress,
+        print_incumbent_solutions=print_incumbent_solutions,
     )
 
     ingredient_frequency = {

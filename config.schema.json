@@ -3,7 +3,7 @@
   "title": "optimal-smugglers-cove config",
   "type": "object",
   "properties": {
-    "max_bottles": {
+    "max_ingredients": {
       "type": "integer",
       "description": "Maximum total number of selected items (bottles + non-bottles) (CP-SAT limit).",
       "default": 10,
@@ -40,11 +40,33 @@
       "description": "Multiplier to keep CP-SAT objective coefficients as integers (larger => larger scaling).",
       "default": 1000000,
       "minimum": 1
+    },
+    "num_search_workers": {
+      "type": "integer",
+      "description": "CP-SAT parallelism. 0 means 'auto' (use all available CPU cores).",
+      "default": 0,
+      "minimum": 0
+    },
+    "max_time_in_seconds": {
+      "type": "number",
+      "description": "Time limit for the CP-SAT solve. 0 means no time limit.",
+      "default": 120,
+      "minimum": 0
+    },
+    "log_search_progress": {
+      "type": "boolean",
+      "description": "If true, enable OR-Tools internal search progress logs.",
+      "default": false
+    },
+    "print_incumbent_solutions": {
+      "type": "boolean",
+      "description": "If true, print periodic progress messages while CP-SAT is solving.",
+      "default": true
     }
   },
   "additionalProperties": false,
   "required": [
-    "max_bottles",
+    "max_ingredients",
     "ingredient_mode"
   ]
 }

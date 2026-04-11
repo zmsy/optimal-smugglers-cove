@@ -1,4 +1,4 @@
 {
-  "max_bottles": 10,
+  "max_ingredients": 100,
   "ingredient_mode": "both"
 }
