@@ -153,4 +153,4 @@ cython_debug/
 index.json
 
 # outputs
-solver_outputs
+output
