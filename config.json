@@ -1,4 +1,4 @@
 {
-  "max_ingredients": 100,
+  "max_ingredients": 25,
   "ingredient_mode": "both"
 }
