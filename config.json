@@ -1,4 +1,5 @@
 {
-  "max_ingredients": 25,
-  "ingredient_mode": "both"
+  "max_ingredients": 10,
+  "ingredient_mode": "bottles_only",
+  "alpha": 1.0
 }

@@ -36,6 +36,9 @@ class Cocktail:
 DEFAULT_CONFIG: dict[str, Any] = {
     "max_ingredients": 10,
     "alpha": 0.3,
+    # If true, the objective ignores cocktail score rankings and optimizes
+    # purely for the number of achievable cocktails.
+    "optimize_for_num_drinks": False,
     "use_log_scores": True,
     "score_scale": 1.0,
     "use_rank_scores": False,
@@ -425,6 +428,11 @@ def main() -> None:
     cfg = load_config(config_path)
     max_ingredients = int(cfg["max_ingredients"])
     alpha = float(cfg["alpha"])
+    optimize_for_num_drinks = bool(cfg.get("optimize_for_num_drinks", False))
+    if optimize_for_num_drinks:
+        # Objective is: maximize alpha*#cocktails + (1-alpha)*score.
+        # Setting alpha=1 makes the score term irrelevant.
+        alpha = 1.0
     use_log_scores = bool(cfg["use_log_scores"])
     score_scale = float(cfg["score_scale"])
     use_rank_scores = bool(cfg.get("use_rank_scores", False))
